@@ -1,3 +1,24 @@
+(* ****************************************************************************
+  Krivine machine only suuports call by name semantics, but a realistic call
+  by name language needs to have at least two more features to be efficient:
+    1. Strict operations on primitives.
+    2. Sharing with lazy evalution.
+
+  Translation:
+    C(n) = ACCESS(n)    -- get the nth thunk from the environment.
+      ^
+    C(\a) = GRAB;C(a)   -- pop one argument and add it to the environment.
+    C(a b) = PUSH(C(b));C(a)    -- push a thunk for code c.
+
+  Push Enter:
+      to evaluate (\.\.b) a1 a2:
+        push a1; push a2; enter (\.\.b);
+          grab a1; grab a2; eval b;
+  Comparing with eval-apply model,  push enter builds less intermediate
+  closures and perform less return from callee to caller.
+ *)
+
+
 exception Error
 
 type inst =

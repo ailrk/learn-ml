@@ -1,3 +1,37 @@
+(*****************************************************************************
+   Reduction
+   - operatonal semantics: relates programs to the result of their evaluation
+     1. simple.
+     2. too concrete, hard to prove some properties.
+   - denotational semantics: map program to math structure (called domain)
+     1. more abstract. Can prove hard properties very concisely.
+     2. harder to establish.
+    ML Call by value, definition of evaluated forms:
+      v ::= λx.a
+          | Cⁿ v₁...vₙ                -- constructed value
+          | Cⁿ v₁...vₖ where k < n    -- partially applied constant
+     - small step decution semantics
+       - defined by a set of redexes.
+     - σ reduction describes how to reduce primitives.
+     - refexes: partial function from programs to programs.
+                (reducable expression)
+ *)
+
+(* Follows the reduction semantics closely.
+     rules for call by value evaluation order.
+          e₁ → e₁'                        e₂ → e₂'
+      ---------------- (app-left)     --------------- (app-right)
+       e₁ e₂ → e₁' e₂                   v e₂ →  v e₂'
+ *)
+
+(*****************************************************************************
+  reduction rules for call by value semantics, v is evaluated before app.
+  ---------- (βᵥ) --------------- (Letᵥ) --------------- (fⁿ v₁‥vₙ→a,a)∈δf
+  (λx.e)v→e[x←v]   let x=v in e→e[x←v]         fⁿ v₁ ‥ vₙ → e
+  Practical langauges need both beta and segma reductions.
+ *)
+
+
 open Syntax
 exception Reduce
 
